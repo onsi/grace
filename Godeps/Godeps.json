@@ -1,0 +1,25 @@
+{
+	"ImportPath": "github.com/onsi/grace",
+	"GoVersion": "go1.3",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/bmizerany/pat",
+			"Rev": "b8a35001b773c267eb260a691f4e5499a3531600"
+		},
+		{
+			"ImportPath": "github.com/pivotal-golang/lager",
+			"Rev": "4a7f4216b220966ac3500c9ff297aeae68278a45"
+		},
+		{
+			"ImportPath": "github.com/tedsuo/ifrit",
+			"Rev": "435f9e78ed02262ec0d1e13a82b5a475c990714a"
+		},
+		{
+			"ImportPath": "github.com/tedsuo/rata",
+			"Rev": "ffbc6810b2dff37aade33e5bf1ee8deadafe867d"
+		}
+	]
+}
