@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/onsi/grace",
-	"GoVersion": "go1.3",
+	"GoVersion": "go1.2",
 	"Packages": [
 		"./..."
 	],
