@@ -38,7 +38,7 @@ func MonitorCommand() Command {
 
 func monitor(route string, pollInterval, batchInterval time.Duration) {
 	say.Println(0, "Monitoring %s every %s", say.Green(route), say.Green("%s", pollInterval))
-	http.DefaultClient.Timeout = 200 * time.Millisecond
+	// http.DefaultClient.Timeout = 200 * time.Millisecond
 
 	ticker := time.NewTicker(pollInterval)
 
