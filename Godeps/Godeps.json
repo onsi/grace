@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/onsi/grace",
-	"GoVersion": "go1.2",
+	"GoVersion": "go1.3",
 	"Packages": [
 		"./..."
 	],
@@ -8,6 +8,14 @@
 		{
 			"ImportPath": "github.com/bmizerany/pat",
 			"Rev": "b8a35001b773c267eb260a691f4e5499a3531600"
+		},
+		{
+			"ImportPath": "github.com/cloudfoundry-incubator/veritas/say",
+			"Rev": "b7fc58090604a54c6a32b7b04557610b010e13fc"
+		},
+		{
+			"ImportPath": "github.com/onsi/gomega/format",
+			"Rev": "4699d5a664396173c7d9fcef9e88be297c7bae13"
 		},
 		{
 			"ImportPath": "github.com/pivotal-golang/lager",
