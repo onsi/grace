@@ -10,9 +10,11 @@ import (
 
 func New(logger lager.Logger) rata.Handlers {
 	handlers := rata.Handlers{
-		routes.Ping:          &Ping{},
-		routes.InstanceIndex: &InstanceIndex{},
-		routes.Env:           &Env{},
+		routes.Ping:            &Ping{},
+		routes.InstanceIndex:   &InstanceIndex{},
+		routes.Env:             &Env{},
+		routes.ListExperiments: &ListExperiments{},
+		routes.Experiments:     &Experiments{},
 	}
 
 	for route, handler := range handlers {

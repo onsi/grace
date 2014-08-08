@@ -15,6 +15,7 @@ func (p *InstanceIndex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if vcap == "" {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Couldn't find VCAP_APPLICATION"))
+		return
 	}
 
 	var decodedVcap struct {
@@ -25,6 +26,7 @@ func (p *InstanceIndex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Couldn't parse VCAP_APPLICATION"))
+		return
 	}
 
 	w.Write([]byte(fmt.Sprintf("%d", decodedVcap.InstanceIndex)))
