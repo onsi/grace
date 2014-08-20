@@ -13,3 +13,7 @@ cf set-env grace CF_DIEGO_BETA true;
 cf set-env grace CF_DIEGO_RUN_BETA true
 cf start grace
 ```
+
+Dockerimage:
+onsi/grace (based on ubuntu)
+onsi/grace-busybox (based on busy-box)
