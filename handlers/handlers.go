@@ -15,6 +15,7 @@ func New(logger lager.Logger) rata.Handlers {
 		routes.Env:             &Env{},
 		routes.ListExperiments: &ListExperiments{},
 		routes.Experiments:     &Experiments{},
+		routes.Hello:           &Hello{},
 	}
 
 	for route, handler := range handlers {

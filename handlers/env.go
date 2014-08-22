@@ -17,5 +17,5 @@ func (p *Env) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		out += "<dd>" + kv[1] + "</dd>"
 	}
 	out += "</dl>"
-	styledTemplate.Execute(w, Body{out})
+	styledTemplate.Execute(w, Body{`<div class="envs">` + out + `</div>`})
 }
