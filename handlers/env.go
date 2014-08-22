@@ -10,5 +10,12 @@ type Env struct {
 }
 
 func (p *Env) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(strings.Join(os.Environ(), "\n")))
+	out := "<dl>"
+	for _, env := range os.Environ() {
+		kv := strings.Split(env, "=")
+		out += "<dt>" + kv[0] + "</dt>"
+		out += "<dd>" + kv[1] + "</dd>"
+	}
+	out += "</dl>"
+	styledTemplate.Execute(w, Body{out})
 }
