@@ -1,33 +1,22 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
+
+	"github.com/onsi/grace/vcap_application_parser"
 )
 
 type InstanceIndex struct {
 }
 
 func (p *InstanceIndex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	vcap := os.Getenv("VCAP_APPLICATION")
-	if vcap == "" {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Couldn't find VCAP_APPLICATION"))
-		return
-	}
-
-	var decodedVcap struct {
-		InstanceIndex int `json:"instance_index"`
-	}
-
-	err := json.Unmarshal([]byte(vcap), &decodedVcap)
+	index, err := vcap_application_parser.GetIndex()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Couldn't parse VCAP_APPLICATION"))
+		w.Write([]byte(err.Error()))
 		return
 	}
 
-	w.Write([]byte(fmt.Sprintf("%d", decodedVcap.InstanceIndex)))
+	w.Write([]byte(fmt.Sprintf("%d", index)))
 }
