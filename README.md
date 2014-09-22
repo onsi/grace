@@ -16,3 +16,9 @@ cf start grace
 Dockerimage:
 onsi/grace (based on ubuntu)
 onsi/grace-busybox (based on busy-box)
+
+To rebuild the dockerimage:
+```bash
+docker build -t="onsi/grace-busybox" .
+docker push onsi/grace-busybox
+```
