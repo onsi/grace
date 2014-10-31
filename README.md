@@ -9,7 +9,7 @@ To push to diego
 
 ```bash
 cf push grace --no-start -b=go_buildpack
-cf set-env grace CF_DIEGO_RUN_BETA true
+cf set-env grace DIEGO_RUN_BETA true
 cf start grace
 ```
 
