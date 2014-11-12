@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/onsi/grace/routes"
 	"github.com/pivotal-golang/lager"
@@ -12,6 +13,7 @@ func New(logger lager.Logger) rata.Handlers {
 	handlers := rata.Handlers{
 		routes.Ping:            &Ping{},
 		routes.InstanceIndex:   &InstanceIndex{},
+		routes.StartedAt:       &StartedAt{Time: time.Now()},
 		routes.Env:             &Env{},
 		routes.ListExperiments: &ListExperiments{},
 		routes.Experiments:     &Experiments{},
