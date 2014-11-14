@@ -17,7 +17,9 @@ import (
 
 func main() {
 	var chatty bool
+	var upFile string
 	flag.BoolVar(&chatty, "chatty", false, "make grace chatty")
+	flag.StringVar(&upFile, "upFile", "", "a file to write to (lives under /tmp)")
 	flag.Parse()
 
 	logger := lager.NewLogger("grace")
@@ -43,6 +45,17 @@ func main() {
 				}
 			}
 		}()
+	}
+
+	if upFile != "" {
+		f, err := os.Create("/tmp/" + upFile)
+		if err != nil {
+			logger.Fatal("upfile.creation.failed", err)
+		}
+		_, err = f.WriteString("Grace is up")
+		if err != nil {
+			logger.Fatal("upfile.creation.failed", err)
+		}
 	}
 
 	server := ifrit.Envoke(http_server.New(":"+os.Getenv("PORT"), handler))

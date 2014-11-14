@@ -21,7 +21,7 @@ func (p *Exit) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	go func() {
-		time.Sleep(time.Second)
+		time.Sleep(100 * time.Millisecond)
 		fmt.Println("See ya!")
 		os.Exit(code)
 	}()
