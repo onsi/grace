@@ -18,8 +18,14 @@ import (
 func main() {
 	var chatty bool
 	var upFile string
+	var exitAfter time.Duration
+	var exitAfterCode int
+
 	flag.BoolVar(&chatty, "chatty", false, "make grace chatty")
 	flag.StringVar(&upFile, "upFile", "", "a file to write to (lives under /tmp)")
+	flag.DurationVar(&exitAfter, "exitAfter", 0, "if set, grace will exit after this duration")
+	flag.IntVar(&exitAfterCode, "exitAfterCode", 0, "exit code to emit with exitAfter")
+
 	flag.Parse()
 
 	logger := lager.NewLogger("grace")
@@ -56,6 +62,14 @@ func main() {
 		if err != nil {
 			logger.Fatal("upfile.creation.failed", err)
 		}
+	}
+
+	if exitAfter != 0 {
+		go func() {
+			time.Sleep(exitAfter)
+			fmt.Println("timebomb... farewell")
+			os.Exit(exitAfterCode)
+		}()
 	}
 
 	server := ifrit.Envoke(http_server.New(":"+os.Getenv("PORT"), handler))
