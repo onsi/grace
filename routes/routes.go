@@ -10,6 +10,7 @@ const (
 	ListExperiments = "LIST_EXPERIMENTS"
 	Experiments     = "EXPERIMENTS"
 	Hello           = "HELLO"
+	Exit            = "EXIT"
 )
 
 var Routes = rata.Routes{
@@ -18,6 +19,7 @@ var Routes = rata.Routes{
 	{Path: "/env", Method: "GET", Name: Env},
 	{Path: "/started-at", Method: "GET", Name: StartedAt},
 	{Path: "/index", Method: "GET", Name: InstanceIndex},
+	{Path: "/exit/:code", Method: "POST", Name: Exit},
 	{Path: "/experiments", Method: "GET", Name: ListExperiments},
 	{Path: "/experiments/:experiment", Method: "GET", Name: Experiments},
 }
