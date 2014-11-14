@@ -10,7 +10,7 @@ import (
 type MakeTmpFile struct {
 }
 
-var fileRe = regexp.MustCompile(`[A-Za-z0-9_- ]+`)
+var fileRe = regexp.MustCompile(`[A-Za-z0-9\_\-\ ]+`)
 
 func (p *MakeTmpFile) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	content, err := ioutil.ReadAll(r.Body)
