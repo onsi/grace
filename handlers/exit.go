@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 )
 
 type Exit struct {
@@ -18,6 +19,10 @@ func (p *Exit) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	fmt.Println("See ya!")
-	os.Exit(code)
+	w.WriteHeader(http.StatusOK)
+	go func() {
+		time.Sleep(time.Second)
+		fmt.Println("See ya!")
+		os.Exit(code)
+	}()
 }

@@ -19,6 +19,8 @@ func New(logger lager.Logger) rata.Handlers {
 		routes.Experiments:     &Experiments{},
 		routes.Hello:           &Hello{},
 		routes.Exit:            &Exit{},
+		routes.MakeTmpFile:     &MakeTmpFile{},
+		routes.DeleteTmpFile:   &DeleteTmpFile{},
 	}
 
 	for route, handler := range handlers {
