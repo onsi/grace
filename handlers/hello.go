@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/onsi/grace/vcap_application_parser"
+	"github.com/onsi/grace/helpers"
 )
 
 type Hello struct {
 }
 
 func (p *Hello) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	index, err := vcap_application_parser.GetIndex()
+	index, err := helpers.FetchIndex()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))

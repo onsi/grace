@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/onsi/grace/handlers"
+	"github.com/onsi/grace/helpers"
 	"github.com/onsi/grace/routes"
-	"github.com/onsi/grace/vcap_application_parser"
 	"github.com/pivotal-golang/lager"
 	"github.com/tedsuo/ifrit"
 	"github.com/tedsuo/ifrit/http_server"
@@ -31,14 +31,19 @@ func main() {
 	logger := lager.NewLogger("grace")
 	logger.RegisterSink(lager.NewWriterSink(os.Stdout, lager.DEBUG))
 
-	logger.Info("hello", lager.Data{"port": os.Getenv("PORT")})
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	logger.Info("hello", lager.Data{"port": port})
 	handler, err := rata.NewRouter(routes.Routes, handlers.New(logger))
 	if err != nil {
 		logger.Fatal("router.creation.failed", err)
 	}
 
 	if chatty {
-		index, err := vcap_application_parser.GetIndex()
+		index, err := helpers.FetchIndex()
 
 		go func() {
 			t := time.NewTicker(time.Second)
@@ -72,7 +77,7 @@ func main() {
 		}()
 	}
 
-	server := ifrit.Envoke(http_server.New(":"+os.Getenv("PORT"), handler))
+	server := ifrit.Envoke(http_server.New(":"+port, handler))
 	err = <-server.Wait()
 	if err != nil {
 		logger.Error("farewell", err)

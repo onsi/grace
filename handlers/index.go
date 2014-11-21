@@ -9,6 +9,5 @@ type InstanceIndex struct {
 }
 
 func (p *InstanceIndex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	index := os.Getenv("CF_INSTANCE_INDEX")
-	w.Write([]byte(index))
+	w.Write([]byte(os.Getenv("CF_INSTANCE_INDEX")))
 }
