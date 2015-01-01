@@ -5,6 +5,7 @@ import "github.com/tedsuo/rata"
 const (
 	Ping            = "PING"
 	Env             = "ENV"
+	Cwd             = "CWD"
 	InstanceIndex   = "INDEX"
 	StartedAt       = "STARTED_AT"
 	ListExperiments = "LIST_EXPERIMENTS"
@@ -21,6 +22,7 @@ var Routes = rata.Routes{
 	{Path: "/", Method: "GET", Name: Hello},
 	{Path: "/ping", Method: "GET", Name: Ping},
 	{Path: "/env", Method: "GET", Name: Env},
+	{Path: "/cwd", Method: "GET", Name: Cwd},
 	{Path: "/started-at", Method: "GET", Name: StartedAt},
 	{Path: "/index", Method: "GET", Name: InstanceIndex},
 	{Path: "/file/:filename", Method: "POST", Name: MakeTmpFile},

@@ -15,6 +15,7 @@ func New(logger lager.Logger) rata.Handlers {
 		routes.InstanceIndex:   &InstanceIndex{},
 		routes.StartedAt:       &StartedAt{Time: time.Now()},
 		routes.Env:             &Env{},
+		routes.Cwd:             &Cwd{},
 		routes.ListExperiments: &ListExperiments{},
 		routes.Experiments:     &Experiments{},
 		routes.Hello:           &Hello{},
