@@ -83,12 +83,13 @@ func main() {
 
 	if catchTerminate {
 		go func() {
+			fmt.Println("Will Catch SIGTERM")
 			c := make(chan os.Signal, 1)
 			signal.Notify(c, syscall.SIGTERM)
 			<-c
 			t := time.NewTicker(time.Second)
 			for {
-				fmt.Println("Caught Interrupt")
+				fmt.Println("Caught SIGTERM")
 				<-t.C
 			}
 		}()
