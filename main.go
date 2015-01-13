@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/onsi/grace/handlers"
@@ -20,11 +21,13 @@ func main() {
 	var upFile string
 	var exitAfter time.Duration
 	var exitAfterCode int
+	var catchTerminate bool
 
 	flag.BoolVar(&chatty, "chatty", false, "make grace chatty")
 	flag.StringVar(&upFile, "upFile", "", "a file to write to (lives under /tmp)")
 	flag.DurationVar(&exitAfter, "exitAfter", 0, "if set, grace will exit after this duration")
 	flag.IntVar(&exitAfterCode, "exitAfterCode", 0, "exit code to emit with exitAfter")
+	flag.BoolVar(&catchTerminate, "catchTerminate", false, "make grace catch SIGTERM")
 
 	flag.Parse()
 
@@ -74,6 +77,19 @@ func main() {
 			time.Sleep(exitAfter)
 			fmt.Println("timebomb... farewell")
 			os.Exit(exitAfterCode)
+		}()
+	}
+
+	if catchTerminate {
+		go func() {
+			c := make(chan os.Signal, 1)
+			signal.Notify(c, os.Interrupt)
+			<-c
+			t := time.NewTicker(time.Second)
+			for {
+				fmt.Println("Caught Interrupt")
+				<-t.C
+			}
 		}()
 	}
 

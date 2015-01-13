@@ -4,5 +4,7 @@ ENV CUSTOM_GRACE_ENV my-docker-configured-env
 CMD ["-chatty"]
 ENTRYPOINT ["/grace"]
 
+WORKDIR /tmp
+
 COPY grace /grace
 RUN chmod a+x /grace
