@@ -20,7 +20,7 @@ import (
 func main() {
 	var chatty bool
 	var upFile string
-	var exitAfter time.Duration
+	var exitAfter, startAfter time.Duration
 	var exitAfterCode int
 	var catchTerminate bool
 
@@ -29,6 +29,7 @@ func main() {
 	flag.DurationVar(&exitAfter, "exitAfter", 0, "if set, grace will exit after this duration")
 	flag.IntVar(&exitAfterCode, "exitAfterCode", 0, "exit code to emit with exitAfter")
 	flag.BoolVar(&catchTerminate, "catchTerminate", false, "make grace catch SIGTERM")
+	flag.DurationVar(&startAfter, "startAfter", 0, "time to wait before starting")
 
 	flag.Parse()
 
@@ -38,6 +39,11 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
+	}
+
+	if startAfter > 0 {
+		logger.Info("grace-is-sleeping-before-coming-up")
+		time.Sleep(startAfter)
 	}
 
 	logger.Info("hello", lager.Data{"port": port})
