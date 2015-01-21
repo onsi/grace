@@ -23,6 +23,7 @@ func main() {
 	var exitAfter, startAfter time.Duration
 	var exitAfterCode int
 	var catchTerminate bool
+	var attachToHostname bool
 
 	flag.BoolVar(&chatty, "chatty", false, "make grace chatty")
 	flag.StringVar(&upFile, "upFile", "", "a file to write to (lives under /tmp)")
