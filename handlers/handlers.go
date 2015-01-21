@@ -20,6 +20,7 @@ func New(logger lager.Logger) rata.Handlers {
 		routes.Experiments:     &Experiments{},
 		routes.Hello:           &Hello{},
 		routes.Exit:            &Exit{},
+		routes.Curl:            &Curl{},
 		routes.MakeTmpFile:     &MakeTmpFile{},
 		routes.DeleteTmpFile:   &DeleteTmpFile{},
 		routes.Stick:           &Stick{},

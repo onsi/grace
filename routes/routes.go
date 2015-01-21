@@ -12,6 +12,7 @@ const (
 	Experiments     = "EXPERIMENTS"
 	Hello           = "HELLO"
 	Exit            = "EXIT"
+	Curl            = "CURL"
 	MakeTmpFile     = "MAKE_TMP_FILE"
 	DeleteTmpFile   = "DELETE_TMP_FILE"
 	Stick           = "STICK"
@@ -28,6 +29,7 @@ var Routes = rata.Routes{
 	{Path: "/file/:filename", Method: "POST", Name: MakeTmpFile},
 	{Path: "/file/:filename", Method: "DELETE", Name: DeleteTmpFile},
 	{Path: "/exit/:code", Method: "POST", Name: Exit},
+	{Path: "/curl", Method: "GET", Name: Curl},
 	{Path: "/experiments", Method: "GET", Name: ListExperiments},
 	{Path: "/experiments/:experiment", Method: "GET", Name: Experiments},
 	{Path: "/stick", Method: "GET", Name: Stick},
