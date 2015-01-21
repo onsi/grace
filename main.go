@@ -30,6 +30,7 @@ func main() {
 	flag.IntVar(&exitAfterCode, "exitAfterCode", 0, "exit code to emit with exitAfter")
 	flag.BoolVar(&catchTerminate, "catchTerminate", false, "make grace catch SIGTERM")
 	flag.DurationVar(&startAfter, "startAfter", 0, "time to wait before starting")
+	flag.BoolVar(&attachToHostname, "attachToHostname", false, "make grace attach to hostname:port instead of :port")
 
 	flag.Parse()
 
@@ -101,7 +102,17 @@ func main() {
 		}()
 	}
 
-	server := ifrit.Envoke(http_server.New(":"+port, handler))
+	addr := ":" + port
+	if attachToHostname {
+		hostname, err := os.Hostname()
+		if err != nil {
+			logger.Fatal("couldn't get hostname", err)
+		}
+		addr = hostname + ":" + port
+	}
+	fmt.Printf("Grace is listening on %s\n", addr)
+
+	server := ifrit.Envoke(http_server.New(addr, handler))
 	err = <-server.Wait()
 	if err != nil {
 		logger.Error("farewell", err)
