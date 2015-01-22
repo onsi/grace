@@ -6,6 +6,6 @@ import (
 )
 
 func FetchIndex() (int, error) {
-	index := os.Getenv("INSTANCE_INDEX")
+	index := os.Getenv("CF_INSTANCE_INDEX")
 	return strconv.Atoi(index)
 }
