@@ -14,6 +14,10 @@
 			"Rev": "5d16aa11eef4643de2d91e88a64dcb6138705d58"
 		},
 		{
+			"ImportPath": "github.com/hanwen/go-fuse/splice",
+			"Rev": "5d16aa11eef4643de2d91e88a64dcb6138705d58"
+		},
+		{
 			"ImportPath": "github.com/onsi/gomega/format",
 			"Comment": "v1.0-28-g8adf9e1",
 			"Rev": "8adf9e1730c55cdc590de7d49766cb2acc88d8f2"
