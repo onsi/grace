@@ -1,9 +1,9 @@
+// +build !busybox
+
 package handlers
 
 import (
-	"flag"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 
@@ -90,17 +90,4 @@ func (me *HelloFs) Open(name string, flags uint32, context *fuse.Context) (file 
 		return nil, fuse.EPERM
 	}
 	return nodefs.NewDataFile([]byte(name)), fuse.OK
-}
-
-func main() {
-	flag.Parse()
-	if len(flag.Args()) < 1 {
-		log.Fatal("Usage:\n  hello MOUNTPOINT")
-	}
-	nfs := pathfs.NewPathNodeFs(&HelloFs{FileSystem: pathfs.NewDefaultFileSystem()}, nil)
-	server, _, err := nodefs.MountRoot(flag.Arg(0), nfs.Root(), nil)
-	if err != nil {
-		log.Fatalf("Mount fail: %v\n", err)
-	}
-	server.Serve()
 }
