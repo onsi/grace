@@ -23,6 +23,10 @@ var _ = Describe("Logger", func() {
 		"foo":      "bar",
 		"a-number": 7,
 	}
+	var anotherLogData = lager.Data{
+		"baz":      "quux",
+		"b-number": 43,
+	}
 
 	BeforeEach(func() {
 		logger = lager.NewLogger(component)
@@ -71,6 +75,8 @@ var _ = Describe("Logger", func() {
 		It("data contains custom user data", func() {
 			Ω(log.Data["foo"]).Should(Equal("bar"))
 			Ω(log.Data["a-number"]).Should(BeNumerically("==", 7))
+			Ω(log.Data["baz"]).Should(Equal("quux"))
+			Ω(log.Data["b-number"]).Should(BeNumerically("==", 43))
 		})
 	}
 
@@ -155,6 +161,23 @@ var _ = Describe("Logger", func() {
 				})
 			})
 
+			Describe("WithData", func() {
+				BeforeEach(func() {
+					session = logger.WithData(lager.Data{"foo": "bar"})
+				})
+
+				It("returns a new logger with the given data", func() {
+					Ω(testSink.Logs()[0].Data["foo"]).Should(Equal("bar"))
+					Ω(testSink.Logs()[1].Data["foo"]).Should(Equal("bar"))
+					Ω(testSink.Logs()[2].Data["foo"]).Should(Equal("bar"))
+					Ω(testSink.Logs()[3].Data["foo"]).Should(Equal("bar"))
+				})
+
+				It("does not append to the logger's task", func() {
+					Ω(testSink.Logs()[0].Message).Should(Equal("my-component.some-debug-action"))
+				})
+			})
+
 			Context("with a nested session", func() {
 				BeforeEach(func() {
 					session = session.Session("sub-sub-action")
@@ -180,7 +203,7 @@ var _ = Describe("Logger", func() {
 	Describe("Debug", func() {
 		Context("with log data", func() {
 			BeforeEach(func() {
-				logger.Debug(action, logData)
+				logger.Debug(action, logData, anotherLogData)
 			})
 
 			TestCommonLogFeatures(lager.DEBUG)
@@ -199,7 +222,7 @@ var _ = Describe("Logger", func() {
 	Describe("Info", func() {
 		Context("with log data", func() {
 			BeforeEach(func() {
-				logger.Info(action, logData)
+				logger.Info(action, logData, anotherLogData)
 			})
 
 			TestCommonLogFeatures(lager.INFO)
@@ -219,7 +242,7 @@ var _ = Describe("Logger", func() {
 		var err = errors.New("oh noes!")
 		Context("with log data", func() {
 			BeforeEach(func() {
-				logger.Error(action, err, logData)
+				logger.Error(action, err, logData, anotherLogData)
 			})
 
 			TestCommonLogFeatures(lager.ERROR)
@@ -265,7 +288,7 @@ var _ = Describe("Logger", func() {
 					fatalErr = recover()
 				}()
 
-				logger.Fatal(action, err, logData)
+				logger.Fatal(action, err, logData, anotherLogData)
 			})
 
 			TestCommonLogFeatures(lager.FATAL)

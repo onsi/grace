@@ -17,6 +17,8 @@ const (
 	DeleteTmpFile   = "DELETE_TMP_FILE"
 	Stick           = "STICK"
 	Unstick         = "UNSTICK"
+	MountFUSEFS     = "MOUNT_FUSE_FS"
+	ListFUSEFS      = "LIST_FUSE_FS"
 )
 
 var Routes = rata.Routes{
@@ -34,4 +36,7 @@ var Routes = rata.Routes{
 	{Path: "/experiments/:experiment", Method: "GET", Name: Experiments},
 	{Path: "/stick", Method: "GET", Name: Stick},
 	{Path: "/unstick", Method: "GET", Name: Unstick},
+
+	{Path: "/fuse-fs/mount", Method: "POST", Name: MountFUSEFS},
+	{Path: "/fuse-fs/ls", Method: "GET", Name: ListFUSEFS},
 }

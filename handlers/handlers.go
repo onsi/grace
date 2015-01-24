@@ -25,6 +25,8 @@ func New(logger lager.Logger) rata.Handlers {
 		routes.DeleteTmpFile:   &DeleteTmpFile{},
 		routes.Stick:           &Stick{},
 		routes.Unstick:         &Unstick{},
+		routes.MountFUSEFS:     &MountFUSEFS{},
+		routes.ListFUSEFS:      &ListFUSEFS{},
 	}
 
 	for route, handler := range handlers {

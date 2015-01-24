@@ -20,6 +20,7 @@ type RequestGenerator struct {
 // Host is of the form "http://example.com".
 func NewRequestGenerator(host string, routes Routes) *RequestGenerator {
 	return &RequestGenerator{
+		Header: make(http.Header),
 		host:   host,
 		routes: routes,
 	}
@@ -36,7 +37,7 @@ func (r *RequestGenerator) CreateRequest(
 ) (*http.Request, error) {
 	route, ok := r.routes.FindRouteByName(name)
 	if !ok {
-		return &http.Request{}, fmt.Errorf("No route exists with the name %", name)
+		return &http.Request{}, fmt.Errorf("No route exists with the name %s", name)
 	}
 	path, err := route.CreatePath(params)
 	if err != nil {
@@ -51,8 +52,9 @@ func (r *RequestGenerator) CreateRequest(
 	}
 
 	for key, values := range r.Header {
-		req.Header[key] = []string{}
+		req.Header[key] = make([]string, len(values))
 		copy(req.Header[key], values)
 	}
+
 	return req, nil
 }

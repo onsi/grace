@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/onsi/grace",
-	"GoVersion": "go1.2",
+	"GoVersion": "go1.4",
 	"Packages": [
 		"./..."
 	],
@@ -10,24 +10,29 @@
 			"Rev": "b8a35001b773c267eb260a691f4e5499a3531600"
 		},
 		{
-			"ImportPath": "github.com/cloudfoundry-incubator/veritas/say",
-			"Rev": "b7fc58090604a54c6a32b7b04557610b010e13fc"
+			"ImportPath": "github.com/hanwen/go-fuse/fuse",
+			"Rev": "5d16aa11eef4643de2d91e88a64dcb6138705d58"
 		},
 		{
 			"ImportPath": "github.com/onsi/gomega/format",
-			"Rev": "4699d5a664396173c7d9fcef9e88be297c7bae13"
+			"Comment": "v1.0-28-g8adf9e1",
+			"Rev": "8adf9e1730c55cdc590de7d49766cb2acc88d8f2"
+		},
+		{
+			"ImportPath": "github.com/pivotal-cf-experimental/veritas/say",
+			"Rev": "057a9e232b0ab4120f5b0158d45a5052ab17df27"
 		},
 		{
 			"ImportPath": "github.com/pivotal-golang/lager",
-			"Rev": "4a7f4216b220966ac3500c9ff297aeae68278a45"
+			"Rev": "ad0fea85471a401834f7eabfc15bf66a76d0e58d"
 		},
 		{
 			"ImportPath": "github.com/tedsuo/ifrit",
-			"Rev": "435f9e78ed02262ec0d1e13a82b5a475c990714a"
+			"Rev": "611096055721e35a95e3d1e4e2bc666fae509fcb"
 		},
 		{
 			"ImportPath": "github.com/tedsuo/rata",
-			"Rev": "ffbc6810b2dff37aade33e5bf1ee8deadafe867d"
+			"Rev": "6197c97c67a03bfd4d6977a3b6060d6c6b3d581f"
 		}
 	]
 }
