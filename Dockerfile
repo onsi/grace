@@ -6,5 +6,7 @@ ENTRYPOINT ["/grace"]
 
 WORKDIR /tmp
 
+EXPOSE 7777 9999
+
 COPY grace /grace
 RUN chmod a+x /grace
