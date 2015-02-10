@@ -10,23 +10,27 @@ import (
 )
 
 func New(logger lager.Logger) rata.Handlers {
+	var sharedCounter uint64
+
 	handlers := rata.Handlers{
-		routes.Ping:            &Ping{},
-		routes.InstanceIndex:   &InstanceIndex{},
-		routes.StartedAt:       &StartedAt{Time: time.Now()},
-		routes.Env:             &Env{},
-		routes.Cwd:             &Cwd{},
-		routes.ListExperiments: &ListExperiments{},
-		routes.Experiments:     &Experiments{},
-		routes.Hello:           &Hello{},
-		routes.Exit:            &Exit{},
-		routes.Curl:            &Curl{},
-		routes.MakeTmpFile:     &MakeTmpFile{},
-		routes.DeleteTmpFile:   &DeleteTmpFile{},
-		routes.Stick:           &Stick{},
-		routes.Unstick:         &Unstick{},
-		routes.MountFUSEFS:     &MountFUSEFS{},
-		routes.ListFUSEFS:      &ListFUSEFS{},
+		routes.Ping:             &Ping{},
+		routes.InstanceIndex:    &InstanceIndex{},
+		routes.StartedAt:        &StartedAt{Time: time.Now()},
+		routes.Env:              &Env{},
+		routes.Cwd:              &Cwd{},
+		routes.ListExperiments:  &ListExperiments{},
+		routes.Experiments:      &Experiments{},
+		routes.Hello:            &Hello{},
+		routes.Exit:             &Exit{},
+		routes.Curl:             &Curl{},
+		routes.MakeTmpFile:      &MakeTmpFile{},
+		routes.DeleteTmpFile:    &DeleteTmpFile{},
+		routes.Stick:            &Stick{},
+		routes.Unstick:          &Unstick{},
+		routes.MountFUSEFS:      &MountFUSEFS{},
+		routes.ListFUSEFS:       &ListFUSEFS{},
+		routes.IncrementCounter: &IncrementCounter{&sharedCounter},
+		routes.ReadCounter:      &ReadCounter{&sharedCounter},
 	}
 
 	for route, handler := range handlers {
