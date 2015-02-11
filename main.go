@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -13,6 +14,7 @@ import (
 	"github.com/onsi/grace/routes"
 	"github.com/pivotal-golang/lager"
 	"github.com/tedsuo/ifrit"
+	"github.com/tedsuo/ifrit/grouper"
 	"github.com/tedsuo/ifrit/http_server"
 	"github.com/tedsuo/rata"
 )
@@ -104,16 +106,25 @@ func main() {
 	}
 
 	addr := ":" + port
+	secondary := ":9999"
 	if attachToHostname {
 		hostname, err := os.Hostname()
 		if err != nil {
 			logger.Fatal("couldn't get hostname", err)
 		}
 		addr = hostname + ":" + port
+		secondary = hostname + ":9999"
 	}
 	fmt.Printf("Grace is listening on %s\n", addr)
 
-	server := ifrit.Envoke(http_server.New(addr, handler))
+	server := ifrit.Invoke(grouper.NewOrdered(os.Interrupt,
+		grouper.Members{
+			{"primary", http_server.New(addr, handler)},
+			{"secondary", http_server.New(secondary, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				fmt.Fprint(w, "grace side-channela")
+			}))},
+		},
+	))
 	err = <-server.Wait()
 	if err != nil {
 		logger.Error("farewell", err)
