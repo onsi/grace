@@ -121,7 +121,7 @@ func main() {
 		grouper.Members{
 			{"primary", http_server.New(addr, handler)},
 			{"secondary", http_server.New(secondary, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				fmt.Fprint(w, "grace side-channela")
+				fmt.Fprint(w, "grace side-channel")
 			}))},
 		},
 	))
