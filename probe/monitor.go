@@ -28,7 +28,7 @@ func MonitorCommand() Command {
 
 	return Command{
 		Name:        "monitor",
-		Description: "[file] - Print previously fetched contents of the BBS.  If file is blank, reads from stdin.",
+		Description: "Monitor Grace",
 		FlagSet:     flagSet,
 		Run: func(args []string) {
 			monitor(route, pollInterval, batchInterval)
