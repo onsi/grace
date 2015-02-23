@@ -19,24 +19,24 @@
 		},
 		{
 			"ImportPath": "github.com/onsi/gomega/format",
-			"Comment": "v1.0-28-g8adf9e1",
-			"Rev": "8adf9e1730c55cdc590de7d49766cb2acc88d8f2"
+			"Comment": "v1.0-20-g94e521f",
+			"Rev": "94e521f211daa9dc73240a0efbba66cfec8bdc7d"
 		},
 		{
-			"ImportPath": "github.com/pivotal-cf-experimental/veritas/say",
-			"Rev": "057a9e232b0ab4120f5b0158d45a5052ab17df27"
+			"ImportPath": "github.com/onsi/say",
+			"Rev": "2669fa588a2850e55ec8ab807017490aa9b9e0f9"
 		},
 		{
 			"ImportPath": "github.com/pivotal-golang/lager",
-			"Rev": "ad0fea85471a401834f7eabfc15bf66a76d0e58d"
+			"Rev": "1baba58607e680b5659dddcad70d53abe5af039e"
 		},
 		{
 			"ImportPath": "github.com/tedsuo/ifrit",
-			"Rev": "611096055721e35a95e3d1e4e2bc666fae509fcb"
+			"Rev": "de3fd329cd527778e808a8bad04309baa0b58eeb"
 		},
 		{
 			"ImportPath": "github.com/tedsuo/rata",
-			"Rev": "6197c97c67a03bfd4d6977a3b6060d6c6b3d581f"
+			"Rev": "9946bb39c19484e199efb807da145063323e6502"
 		}
 	]
 }

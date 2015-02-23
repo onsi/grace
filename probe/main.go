@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/pivotal-cf-experimental/veritas/say"
+	"github.com/onsi/say"
 )
 
 type Command struct {

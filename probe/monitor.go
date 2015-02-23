@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/onsi/gomega/format"
-	"github.com/pivotal-cf-experimental/veritas/say"
+	"github.com/onsi/say"
 )
 
 func MonitorCommand() Command {
