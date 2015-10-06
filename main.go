@@ -9,6 +9,8 @@ import (
 	"syscall"
 	"time"
 
+	_ "net/http/pprof"
+
 	"github.com/onsi/grace/handlers"
 	"github.com/onsi/grace/helpers"
 	"github.com/onsi/grace/routes"
@@ -125,6 +127,16 @@ func main() {
 			}))},
 		},
 	))
+
+	go func() {
+		//debug server
+		logger.Info("debug.server.starting", lager.Data{"port": 6060})
+		err := http.ListenAndServe("localhost:6060", nil)
+		if err != nil {
+			logger.Error("debug.server.failed", err)
+		}
+	}()
+
 	err = <-server.Wait()
 	if err != nil {
 		logger.Error("farewell", err)
