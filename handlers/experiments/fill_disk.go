@@ -39,9 +39,22 @@ func FillDisk(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.Write([]byte("<div>Writing another 1MB..."))
-		f.Write(b)
-		f.Sync()
+		_, err = f.Write(b)
+		if err != nil {
+			w.Write([]byte(fmt.Sprintf(" failed to write! %s", err.Error())))
+			return
+		}
+		err = f.Sync()
+		if err != nil {
+			w.Write([]byte(fmt.Sprintf(" failed to sync! %s", err.Error())))
+			return
+		}
+
 		w.Write([]byte(fmt.Sprintf(" total is at: %dMB</div>", total)))
+		f, ok := w.(http.Flusher)
+		if ok {
+			f.Flush()
+		}
 		total += 1
 	}
 }
