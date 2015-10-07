@@ -31,7 +31,7 @@ func FillDisk(w http.ResponseWriter, r *http.Request) {
 
 	w.Write([]byte(`<html><head></head><body>`))
 
-	total := 1
+	total := 0
 	for {
 		_, err := rand.Read(b)
 		if err != nil {
@@ -39,7 +39,7 @@ func FillDisk(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.Write([]byte("<div>Writing another 1MB..."))
-		_, err = f.Write(b)
+		n, err := f.Write(b)
 		if err != nil {
 			w.Write([]byte(fmt.Sprintf(" failed to write! %s", err.Error())))
 			return
@@ -50,11 +50,11 @@ func FillDisk(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		w.Write([]byte(fmt.Sprintf(" total is at: %dMB</div>", total)))
+		total += n
+		w.Write([]byte(fmt.Sprintf(" total is at: %.3f MB</div>", float64(total)/1024.0/1024.0)))
 		f, ok := w.(http.Flusher)
 		if ok {
 			f.Flush()
 		}
-		total += 1
 	}
 }
